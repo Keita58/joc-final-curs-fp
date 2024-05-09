@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tilemap sota
   - Tilemap muntanya i aigua
+  - Tilemap carretera
   layers:
   - Default
   - TransparentFX

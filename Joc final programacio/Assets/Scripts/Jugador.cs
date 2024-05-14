@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemic : MonoBehaviour
+public class Jugador : MonoBehaviour
 {
-    [SerializeField] int casellesMoviment;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +13,6 @@ public class Enemic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //this.transform.position = new Vector3(this.transform.position.x - 1, this.transform.position.y, this.transform.position.z);
+        
     }
 }

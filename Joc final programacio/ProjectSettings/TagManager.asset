@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Tilemap sota
   - Tilemap muntanya i aigua
+  - Tilemap decoracio
+  - Soldat
+  - Aire
+  - Vehicle
   - Tilemap carretera
   layers:
   - Default

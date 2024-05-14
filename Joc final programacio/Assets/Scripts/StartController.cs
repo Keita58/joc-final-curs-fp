@@ -16,6 +16,6 @@ public class StartController : MonoBehaviour
 
     void TaskOnClick()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Mapa1");
     }
 }

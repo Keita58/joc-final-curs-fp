@@ -7733,6 +7733,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 781026079047514144, guid: 19262c2731577fb4d99b12041e789841, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 880535928295721251, guid: 19262c2731577fb4d99b12041e789841, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -8196,7 +8200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2741568450103032919, guid: 4d7515e3a1f846842afd5675cfd606ef, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2741568450103032919, guid: 4d7515e3a1f846842afd5675cfd606ef, type: 3}
       propertyPath: m_LocalPosition.x

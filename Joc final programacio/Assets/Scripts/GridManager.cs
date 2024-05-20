@@ -20,5 +20,6 @@ public class GridManager : MonoBehaviour
     private void OnMouseDown()
     {
         j.Move(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        j.Paint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
     }
 }

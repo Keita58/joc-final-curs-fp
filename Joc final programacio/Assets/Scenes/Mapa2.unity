@@ -7983,7 +7983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundTilemap: {fileID: 316476782}
   collisionTilemap: {fileID: 323863206}
-  moviment: 0
+  moviment: 4
 --- !u!1 &2139682937 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6981692566953501664, guid: 2aaa9d4ed339bb5478ca7a2a215c9261, type: 3}

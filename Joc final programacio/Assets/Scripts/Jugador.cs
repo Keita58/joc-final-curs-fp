@@ -26,7 +26,7 @@ public class Jugador : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        this.QuitarSelect();
     }
 
     public void Move(Vector2 direction)
@@ -103,10 +103,13 @@ public class Jugador : MonoBehaviour
     }
     void QuitarSelect()
     {
-        Vector3Int gridPosition = groundTilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        for (int x = 0; x < list.Count; x++)
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (groundTilemap.WorldToCell(list[x].transform.position) == gridPosition) this.selected = false;
+            Vector3Int gridPosition = groundTilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            for (int x = 0; x < list.Count; x++)
+            {
+                if (groundTilemap.WorldToCell(list[x].transform.position) == gridPosition) this.selected = false;
+            }
         }
     }
     /*   private void canPaintRecursiu(Vector3Int pos, int moviments)
@@ -135,7 +138,6 @@ public class Jugador : MonoBehaviour
        }*/
     private void OnMouseDown()
     {
-        this.QuitarSelect();
         this.Paint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         if (!this.selected) this.selected = true;
         else

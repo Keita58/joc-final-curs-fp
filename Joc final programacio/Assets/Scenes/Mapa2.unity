@@ -140,7 +140,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa83e5c536d8d4f4185beb0e13d6b85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  casellesMoviment: 4
+  gridManager: {fileID: 316476784}
+  hp: 3
+  groundTilemap: {fileID: 316476782}
+  list:
+  - {fileID: 510601284}
+  listEnemic:
+  - {fileID: 2111884038}
+  collisionTilemap: {fileID: 323863206}
+  moviment: 3
+  RangAtac: 2
+  distancia: 0
+  selected: 0
 --- !u!4 &26005516 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7188672954001619633, guid: 5fb14337754a0ba4f8e94c98b64fec39, type: 3}
@@ -203,6 +214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63439f88a94b73469faa4ddee0de043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridManager: {fileID: 0}
+  hp: 0
   groundTilemap: {fileID: 316476782}
   list:
   - {fileID: 2111884038}
@@ -424,9 +437,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1889352012}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1444798556532029503, guid: 9117e9e6c336c7f4dbac37365f57a6d8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2111884035}
     - targetCorrespondingSourceObject: {fileID: 1444798556532029503, guid: 9117e9e6c336c7f4dbac37365f57a6d8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2111884038}
@@ -2495,7 +2505,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   list:
   - {fileID: 2111884038}
-  - {fileID: 26005520}
+  listEnemic:
+  - {fileID: 510601284}
+  - {fileID: 26005514}
+  torn: 0
 --- !u!1 &323863203
 GameObject:
   m_ObjectHideFlags: 0
@@ -3596,7 +3609,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa83e5c536d8d4f4185beb0e13d6b85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  casellesMoviment: 4
+  gridManager: {fileID: 316476784}
+  hp: 3
+  groundTilemap: {fileID: 316476782}
+  list:
+  - {fileID: 26005514}
+  listEnemic:
+  - {fileID: 2111884038}
+  collisionTilemap: {fileID: 323863206}
+  moviment: 2
+  RangAtac: 3
+  distancia: 1
+  selected: 0
 --- !u!4 &510601286 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7188672954001619633, guid: 5fb14337754a0ba4f8e94c98b64fec39, type: 3}
@@ -4779,7 +4803,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa83e5c536d8d4f4185beb0e13d6b85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  casellesMoviment: 5
+  gridManager: {fileID: 0}
+  hp: 0
+  groundTilemap: {fileID: 0}
+  list: []
+  listEnemic: []
+  collisionTilemap: {fileID: 0}
+  moviment: 0
+  RangAtac: 0
+  distancia: 0
+  selected: 0
 --- !u!4 &1283740427 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2741568450103032919, guid: 4d7515e3a1f846842afd5675cfd606ef, type: 3}
@@ -5894,19 +5927,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1444798556532029503, guid: 9117e9e6c336c7f4dbac37365f57a6d8, type: 3}
   m_PrefabInstance: {fileID: 117918528}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2111884035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2111884034}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa83e5c536d8d4f4185beb0e13d6b85f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  casellesMoviment: 3
 --- !u!4 &2111884037 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5463382433257995076, guid: 9117e9e6c336c7f4dbac37365f57a6d8, type: 3}
@@ -5924,15 +5944,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63439f88a94b73469faa4ddee0de043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridManager: {fileID: 316476784}
+  hp: 3
   groundTilemap: {fileID: 316476782}
-  list:
-  - {fileID: 26005520}
+  list: []
   listEnemic:
   - {fileID: 510601284}
+  - {fileID: 26005514}
   collisionTilemap: {fileID: 323863206}
-  moviment: 4
-  RangAtac: 8
-  distancia: 1
+  moviment: 3
+  RangAtac: 2
+  distancia: 0
   selected: 0
 --- !u!61 &2111884040
 BoxCollider2D:

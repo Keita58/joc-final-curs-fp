@@ -7,6 +7,9 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField]
     List<Jugador> list;
+    [SerializeField]
+    List<Enemic> listEnemic;
+    public int torn = 0;
     void Start()
     {
         
@@ -19,11 +22,24 @@ public class GridManager : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        for(int x = 0; x < list.Count; x++)
+        if (torn == 0)
         {
-            if (list[x].selected)
+            for (int x = 0; x < list.Count; x++)
             {
-                list[x].Move(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                if (list[x].selected)
+                {
+                    list[x].Move(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                }
+            }
+        }
+        else
+        {
+            for (int x = 0; x < list.Count; x++)
+            {
+                if (listEnemic[x].selected)
+                {
+                    listEnemic[x].Move(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                }
             }
         }
 

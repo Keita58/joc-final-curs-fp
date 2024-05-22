@@ -10,6 +10,8 @@ using UnityEngine.UIElements;
 
 public class Jugador : MonoBehaviour
 {
+   public GridManager gridManager;
+    [SerializeField] public int hp;
     [SerializeField]
     Tilemap groundTilemap;
     [SerializeField] List<Jugador> list;
@@ -30,15 +32,19 @@ public class Jugador : MonoBehaviour
     bool ataque = false;
     void Update()
     {
-        for (int x = 0; x < listEnemic.Count; x++)
+        if (!listEnemic.IsUnityNull())
         {
+            for (int x = 0; x < listEnemic.Count; x++)
+            {
 
-            if (groundTilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition)) == groundTilemap.WorldToCell(listEnemic[x].transform.position))
-        {
-        
-
-                this.atacar();
-                this.ataque = true;
+                if (groundTilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition)) == groundTilemap.WorldToCell(listEnemic[x].transform.position))
+                {
+                    if (this.selected)
+                    {
+                        this.atacar();
+                        this.ataque = true;
+                    }
+                }
             }
         }
         if(!ataque)
@@ -79,6 +85,7 @@ public class Jugador : MonoBehaviour
         {
             Vector3Int gridPosition = groundTilemap.WorldToCell((Vector3)direction);
             if (!groundTilemap.HasTile(gridPosition) || collisionTilemap.HasTile(gridPosition)) return false;
+            gridManager.torn = 1;
             return true;
         }
         return false;
@@ -230,11 +237,28 @@ public class Jugador : MonoBehaviour
                 for(int x =0; x<listEnemic.Count; x++)
                 {
                     if (gridPosition == groundTilemap.WorldToCell(listEnemic[x].transform.position)){
-                        //   listEnemic[x].danyar();
+                        listEnemic[x].danyar();
+                        gridManager.torn = 1;
                         print("Yo: te pego");
                         print("Enemigo: Ai");
+                        if (listEnemic[x].hp <= 0)
+                        {
+                            this.listEnemic.Remove(listEnemic[x]);
+                        }
                     }
                 }
+            }
+        }
+    }
+    public void danyar()
+    {
+        if (gridManager.torn == 1)
+        {
+            this.hp--;
+            gridManager.torn = 0;
+            if (this.hp <= 0)
+            {
+                Destroy(this.gameObject);
             }
         }
     }

@@ -38,10 +38,6 @@ public class Buy : MonoBehaviour
             string[] values = textBotoComprar.text.Split(" ");
             textBotoComprar.text = (int.Parse(values[0]) - quantitat).ToString() + " " + values[1];
         }
-        else
-        {
-            //botoMenys.enabled = false;
-        }
     }
 
     // Update is called once per frame
@@ -56,10 +52,6 @@ public class Buy : MonoBehaviour
             string[] values = textBotoComprar.text.Split(" ");
             textBotoComprar.text = (int.Parse(values[0]) + quantitat).ToString() + " " + values[1];
         }
-        else
-        {
-            //botoMenys.enabled = false;
-        }
     }
 
     //TODO Afegir el cost dels objectes!!! 
@@ -69,9 +61,12 @@ public class Buy : MonoBehaviour
         {
             GameObject aliat = Instantiate(copy);
             aliat.transform.position = new Vector3(this.transform.position.x, -2, this.transform.position.z);
+            aliat.AddComponent<Grab>();
             GameObject num = Instantiate(nums[int.Parse(text.text) - 1], aliat.transform);
             num.transform.position = new Vector3(aliat.transform.position.x + 0.1f, aliat.transform.position.y - 0.15f, 0);
             creat = true;
+            text.text = "0";
+            textBotoComprar.text = "0 G";
         }
     }
 }

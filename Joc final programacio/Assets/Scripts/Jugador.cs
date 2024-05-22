@@ -13,9 +13,12 @@ public class Jugador : MonoBehaviour
     [SerializeField]
     Tilemap groundTilemap;
     [SerializeField] List<Jugador> list;
+    [SerializeField] List<Enemic> listEnemic;
     [SerializeField]
     Tilemap collisionTilemap;
     [SerializeField] int moviment;
+    [SerializeField] int RangAtac;
+    [SerializeField] bool distancia = false;
     [SerializeField] public bool selected = false;
     // Start is called before the first frame update
     void Start()
@@ -24,9 +27,25 @@ public class Jugador : MonoBehaviour
     }
 
     // Update is called once per frame
+    bool ataque = false;
     void Update()
     {
-        this.QuitarSelect();
+        for (int x = 0; x < listEnemic.Count; x++)
+        {
+
+            if (groundTilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition)) == groundTilemap.WorldToCell(listEnemic[x].transform.position))
+        {
+        
+
+                this.atacar();
+                this.ataque = true;
+            }
+        }
+        if(!ataque)
+        {
+            this.QuitarSelect();
+        }
+        this.ataque = false;
     }
 
     public void Move(Vector2 direction)
@@ -66,15 +85,63 @@ public class Jugador : MonoBehaviour
     }
     public void Paint(Vector2 direction)
     {
-        print(CanPaint(direction));
-        if (CanPaint(direction))
+        print(CanPaintMovement(direction));
+        if (CanPaintMovement(direction))
         {
 
             groundTilemap.SetColor(groundTilemap.WorldToCell((Vector3)direction), Color.red);
             collisionTilemap.SetColor(groundTilemap.WorldToCell((Vector3)direction), Color.red);
         }
     }
-    private bool CanPaint(Vector2 direction)
+    private bool CanPaintMovement(Vector2 direction)
+    {
+        if (!distancia) {
+            for (int x = groundTilemap.cellBounds.min.x; x < groundTilemap.cellBounds.max.x; x++)
+            {
+                for (int y = groundTilemap.cellBounds.min.y; y < groundTilemap.cellBounds.max.y; y++)
+                {
+                    for (int z = groundTilemap.cellBounds.min.z; z < groundTilemap.cellBounds.max.z; z++)
+                    {
+                        if (Vector3Int.Distance(new Vector3Int(x, y, z), groundTilemap.WorldToCell(this.transform.position)) <= moviment)
+                        {
+                            groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
+                            groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.green);
+                        }
+                        else
+                        {
+                            groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                        }
+                    }
+                }
+            } 
+            CanPaintAtk();
+        }
+        else
+        {
+            CanPaintAtk();
+            for (int x = groundTilemap.cellBounds.min.x; x < groundTilemap.cellBounds.max.x; x++)
+            {
+                for (int y = groundTilemap.cellBounds.min.y; y < groundTilemap.cellBounds.max.y; y++)
+                {
+                    for (int z = groundTilemap.cellBounds.min.z; z < groundTilemap.cellBounds.max.z; z++)
+                    {
+                        if (Vector3Int.Distance(new Vector3Int(x, y, z), groundTilemap.WorldToCell(this.transform.position)) <= moviment)
+                        {
+                            groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
+                            groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.green);
+                        }
+                    }
+                }
+            }
+        }
+       
+        
+        Vector3Int gridPosition = groundTilemap.WorldToCell((Vector3)direction);
+        if (!groundTilemap.HasTile(gridPosition) || collisionTilemap.HasTile(gridPosition)) return false;
+        return true;
+
+    }
+    void CanPaintAtk()
     {
         for (int x = groundTilemap.cellBounds.min.x; x < groundTilemap.cellBounds.max.x; x++)
         {
@@ -82,24 +149,21 @@ public class Jugador : MonoBehaviour
             {
                 for (int z = groundTilemap.cellBounds.min.z; z < groundTilemap.cellBounds.max.z; z++)
                 {
-                    if (Vector3Int.Distance(new Vector3Int(x, y, z), groundTilemap.WorldToCell(this.transform.position)) <= moviment)
+                    if (Vector3Int.Distance(new Vector3Int(x, y, z), groundTilemap.WorldToCell(this.transform.position)) <= RangAtac)
                     {
                         groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
                         groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.red);
                     }
                     else
                     {
-                        groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                        if (distancia)
+                        {
+                            groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                        }
                     }
                 }
             }
-
         }
-
-        Vector3Int gridPosition = groundTilemap.WorldToCell((Vector3)direction);
-        if (!groundTilemap.HasTile(gridPosition) || collisionTilemap.HasTile(gridPosition)) return false;
-        return true;
-
     }
     void QuitarSelect()
     {
@@ -156,5 +220,22 @@ public class Jugador : MonoBehaviour
             this.selected = false;
         }
         print(this.selected);
+    }
+    void atacar()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Vector3Int gridPosition = groundTilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            if((Vector3Int.Distance(gridPosition, groundTilemap.WorldToCell(this.transform.position)) <= RangAtac)){
+                for(int x =0; x<listEnemic.Count; x++)
+                {
+                    if (gridPosition == groundTilemap.WorldToCell(listEnemic[x].transform.position)){
+                        //   listEnemic[x].danyar();
+                        print("Yo: te pego");
+                        print("Enemigo: Ai");
+                    }
+                }
+            }
+        }
     }
 }

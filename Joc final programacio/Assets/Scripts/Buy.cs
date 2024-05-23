@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class Buy : MonoBehaviour
@@ -14,17 +15,20 @@ public class Buy : MonoBehaviour
     [SerializeField] GameObject copy;
     [SerializeField] int quantitat;
     [SerializeField] GameObject[] nums;
-    bool creat = false;
+    public bool creat;
+    [SerializeField] Tilemap map;
+    [SerializeField]
+    Llista jugadors;
     // Start is called before the first frame update
     void Start()
     {
+        creat = false;
         text.text = "0";
         botoMes.onClick.AddListener(suma);
         botoMenys.onClick.AddListener(resta);
         botoComprar.onClick.AddListener(compra);
         textBotoComprar = botoComprar.GetComponentInChildren<TextMeshProUGUI>();
         textBotoComprar.text = "0 G";
-        //botoMes.onClick.AddListener(suma);
     }
 
     public void resta()
@@ -60,8 +64,11 @@ public class Buy : MonoBehaviour
         if(!creat && int.Parse(text.text) > 0)
         {
             GameObject aliat = Instantiate(copy);
+            aliat.name = copy.name;
             aliat.transform.position = new Vector3(this.transform.position.x, -2, this.transform.position.z);
             aliat.AddComponent<Grab>();
+            aliat.GetComponent<Grab>().groundTilemap = map;
+            aliat.GetComponent<Grab>().llista = jugadors.listSoldats;
             GameObject num = Instantiate(nums[int.Parse(text.text) - 1], aliat.transform);
             num.transform.position = new Vector3(aliat.transform.position.x + 0.1f, aliat.transform.position.y - 0.15f, 0);
             creat = true;

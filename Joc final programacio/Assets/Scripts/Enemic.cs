@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using UnityEngine.Tilemaps;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.PlasticSCM.Editor.WebApi;
@@ -33,14 +36,16 @@ public class Enemic : MonoBehaviour
         {
             for (int x = 0; x < listEnemic.Count; x++)
             {
-
-                if (groundTilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition)) == groundTilemap.WorldToCell(listEnemic[x].transform.position))
+                if (listEnemic[x] != null)
                 {
-
-                    if (this.selected)
+                    if (groundTilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition)) == groundTilemap.WorldToCell(listEnemic[x].transform.position))
                     {
-                        this.atacar();
-                        this.ataque = true;
+
+                        if (this.selected && gridManager.torn==1)
+                        {
+                            this.atacar();
+                            this.ataque = true;
+                        }
                     }
                 }
             }
@@ -55,12 +60,13 @@ public class Enemic : MonoBehaviour
     public void Move(Vector2 direction)
     {
         print(CanMove(direction));
-        print("Selected en moviment: " + selected);
         if (this.selected)
         {
-            print("entro");
             if (CanMove(direction))
-            {
+            {  
+                print("Enemic Torn abans del canvi: " + gridManager.torn);
+                gridManager.torn = 0;
+                print("Enemic Torn despres del canvi: " + gridManager.torn);
                 transform.position = new Vector3(groundTilemap.WorldToCell((Vector3)direction).x + 0.5f, groundTilemap.WorldToCell((Vector3)direction).y + 0.5f, groundTilemap.WorldToCell((Vector3)direction).z);
             }
             for (int x = groundTilemap.cellBounds.min.x; x < groundTilemap.cellBounds.max.x; x++)
@@ -83,7 +89,6 @@ public class Enemic : MonoBehaviour
         {
             Vector3Int gridPosition = groundTilemap.WorldToCell((Vector3)direction);
             if (!groundTilemap.HasTile(gridPosition) || collisionTilemap.HasTile(gridPosition)) return false;
-            gridManager.torn = 0;
             return true;
         }
         return false;
@@ -111,7 +116,7 @@ public class Enemic : MonoBehaviour
                         if (Vector3Int.Distance(new Vector3Int(x, y, z), groundTilemap.WorldToCell(this.transform.position)) <= moviment)
                         {
                             groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
-                            groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.green);
+                            groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)),new Color(255, 0, 0,0.74f));
                         }
                         else
                         {
@@ -134,7 +139,7 @@ public class Enemic : MonoBehaviour
                         if (Vector3Int.Distance(new Vector3Int(x, y, z), groundTilemap.WorldToCell(this.transform.position)) <= moviment)
                         {
                             groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
-                            groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.green);
+                            groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), new Color(255, 0, 0, 0.74f));
                         }
                     }
                 }
@@ -149,22 +154,24 @@ public class Enemic : MonoBehaviour
     }
     void CanPaintAtk()
     {
-        for (int x = groundTilemap.cellBounds.min.x; x < groundTilemap.cellBounds.max.x; x++)
-        {
-            for (int y = groundTilemap.cellBounds.min.y; y < groundTilemap.cellBounds.max.y; y++)
+        if (gridManager.torn==1) {
+            for (int x = groundTilemap.cellBounds.min.x; x < groundTilemap.cellBounds.max.x; x++)
             {
-                for (int z = groundTilemap.cellBounds.min.z; z < groundTilemap.cellBounds.max.z; z++)
+                for (int y = groundTilemap.cellBounds.min.y; y < groundTilemap.cellBounds.max.y; y++)
                 {
-                    if (Vector3Int.Distance(new Vector3Int(x, y, z), groundTilemap.WorldToCell(this.transform.position)) <= RangAtac)
+                    for (int z = groundTilemap.cellBounds.min.z; z < groundTilemap.cellBounds.max.z; z++)
                     {
-                        groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
-                        groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.red);
-                    }
-                    else
-                    {
-                        if (distancia)
+                        if (Vector3Int.Distance(new Vector3Int(x, y, z), groundTilemap.WorldToCell(this.transform.position)) <= RangAtac)
                         {
-                            groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                            groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
+                            groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.red);
+                        }
+                        else
+                        {
+                            if (distancia)
+                            {
+                                groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                            }
                         }
                     }
                 }
@@ -178,7 +185,8 @@ public class Enemic : MonoBehaviour
             Vector3Int gridPosition = groundTilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             for (int x = 0; x < list.Count; x++)
             {
-                if (groundTilemap.WorldToCell(list[x].transform.position) == gridPosition) this.selected = false;
+                if (list[x] != null)
+                    if (groundTilemap.WorldToCell(list[x].transform.position) == gridPosition) this.selected = false;
             }
         }
     }
@@ -209,7 +217,7 @@ public class Enemic : MonoBehaviour
     private void OnMouseDown()
     {
         this.Paint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        if (!this.selected) this.selected = true;
+        if (!this.selected && gridManager.torn==1) this.selected = true;
         else
         {
             for (int x = groundTilemap.cellBounds.min.x; x < groundTilemap.cellBounds.max.x; x++)
@@ -236,31 +244,36 @@ public class Enemic : MonoBehaviour
             {
                 for (int x = 0; x < listEnemic.Count; x++)
                 {
-                    if (gridPosition == groundTilemap.WorldToCell(listEnemic[x].transform.position))
+                    if (listEnemic[x] != null)
                     {
-                        listEnemic[x].danyar();
-                        gridManager.torn = 0;
-                        print("Yo: te pego");
-                        print("Enemigo: Ai");
-                        if (listEnemic[x].hp <= 0)
+                        if (gridPosition == groundTilemap.WorldToCell(listEnemic[x].transform.position) && gridManager.torn == 1)
                         {
-                            this.listEnemic.Remove(listEnemic[x]);
+                            print("Enemic He atacado, selected: " + this.selected+" torn:"+gridManager.torn);
+                            listEnemic[x].danyar();
+                            gridManager.torn = 0;
+                            print("Yo"+this.name+": te pego");
+                            print(listEnemic[x].name+"Enemigo: Ai");
+                            if (listEnemic[x].hp <= 0)
+                            {
+                                this.listEnemic.Remove(listEnemic[x]);
+                            }
+                            this.selected = false;
                         }
                     }
                 }
             }
         }
     }
-public void danyar()
+    public void danyar()
     {
         if (gridManager.torn == 0)
         {
             this.hp--;
-            gridManager.torn = 1;
             if (this.hp <= 0)
             {
                 Destroy(this.gameObject);
             }
         }
     }
+
 }

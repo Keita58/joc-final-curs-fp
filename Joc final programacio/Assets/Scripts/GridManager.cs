@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class GridManager : MonoBehaviour
     List<Jugador> list;
     [SerializeField]
     List<Enemic> listEnemic;
+    [SerializeField]
+    TextMeshProUGUI textMesh;
     public int torn = 0;
     void Start()
     {
@@ -18,7 +21,10 @@ public class GridManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (this.torn == 0)
+            textMesh.text = "Torn: Blau";
+        else
+            textMesh.text = "Torn: Vermell";
     }
     private void OnMouseDown()
     {
@@ -26,19 +32,25 @@ public class GridManager : MonoBehaviour
         {
             for (int x = 0; x < list.Count; x++)
             {
-                if (list[x].selected)
+                if (list[x] != null)
                 {
-                    list[x].Move(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                    if (list[x].selected)
+                    {
+                        list[x].Move(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                    }
                 }
             }
         }
         else
         {
-            for (int x = 0; x < list.Count; x++)
+            for (int x = 0; x < listEnemic.Count; x++)
             {
-                if (listEnemic[x].selected)
+                if (listEnemic[x] != null)
                 {
-                    listEnemic[x].Move(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                    if (listEnemic[x].selected)
+                    {
+                        listEnemic[x].Move(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                    }
                 }
             }
         }

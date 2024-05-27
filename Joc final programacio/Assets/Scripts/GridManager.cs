@@ -54,7 +54,5 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-
-        //  j.Paint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
     }
 }

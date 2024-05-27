@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
 public class Llista : MonoBehaviour
 {
     public List<GameObject> listSoldats;
     public bool possible;
+    public Tilemap groundTilemap;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +34,8 @@ public class Llista : MonoBehaviour
         else 
         { 
             for(int i = 0; i < listSoldats.Count; i++) {
-                if (listSoldats[i].transform.position == collision.transform.position) {
+                Vector3 posSoldat = new Vector3(groundTilemap.WorldToCell(listSoldats[i].transform.position).x + 0.5f, groundTilemap.WorldToCell(listSoldats[i].transform.position).y + 0.5f, groundTilemap.WorldToCell(listSoldats[i].transform.position).z);
+                if (posSoldat == collision.transform.position) {
                     possible = false;
                 }
             }

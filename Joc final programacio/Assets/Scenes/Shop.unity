@@ -155,7 +155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listSoldats: []
-  jugador: {fileID: 0}
+  possible: 0
+  groundTilemap: {fileID: 729376532}
 --- !u!61 &8399555
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -188,7 +189,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.21505547, y: -0.023419857}
+  m_Offset: {x: 0.23608208, y: -0.070732355}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -199,7 +200,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9.915262, y: 0.9531603}
+  m_Size: {x: 9.648924, y: 0.8585353}
   m_EdgeRadius: 0
 --- !u!4 &8399556
 Transform:
@@ -242,7 +243,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!1 &49374466
 GameObject:
   m_ObjectHideFlags: 0
@@ -5695,7 +5696,7 @@ MonoBehaviour:
   - {fileID: 1650110278930429114, guid: 6e10e855959e63644a889df047c6325d, type: 3}
   creat: 0
   map: {fileID: 729376532}
-  si: {fileID: 0}
+  jugadors: {fileID: 8399554}
 --- !u!1 &928699916
 GameObject:
   m_ObjectHideFlags: 0
@@ -6505,7 +6506,7 @@ MonoBehaviour:
   - {fileID: 1650110278930429114, guid: 6e10e855959e63644a889df047c6325d, type: 3}
   creat: 0
   map: {fileID: 729376532}
-  si: {fileID: 0}
+  jugadors: {fileID: 8399554}
 --- !u!1 &1084845481
 GameObject:
   m_ObjectHideFlags: 0
@@ -7294,7 +7295,7 @@ MonoBehaviour:
   - {fileID: 1650110278930429114, guid: 6e10e855959e63644a889df047c6325d, type: 3}
   creat: 0
   map: {fileID: 729376532}
-  si: {fileID: 0}
+  jugadors: {fileID: 8399554}
 --- !u!1 &1235145675 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4660613923954475898, guid: 5641d9ae6329efe45b1369eec06d2bbe, type: 3}
@@ -7330,7 +7331,7 @@ MonoBehaviour:
   - {fileID: 1650110278930429114, guid: 6e10e855959e63644a889df047c6325d, type: 3}
   creat: 0
   map: {fileID: 729376532}
-  si: {fileID: 0}
+  jugadors: {fileID: 8399554}
 --- !u!1 &1253169455
 GameObject:
   m_ObjectHideFlags: 0
@@ -8802,7 +8803,7 @@ MonoBehaviour:
   - {fileID: 1650110278930429114, guid: 6e10e855959e63644a889df047c6325d, type: 3}
   creat: 0
   map: {fileID: 729376532}
-  si: {fileID: 0}
+  jugadors: {fileID: 8399554}
 --- !u!1 &1737070968
 GameObject:
   m_ObjectHideFlags: 0
@@ -9217,7 +9218,7 @@ MonoBehaviour:
   - {fileID: 1650110278930429114, guid: 6e10e855959e63644a889df047c6325d, type: 3}
   creat: 0
   map: {fileID: 729376532}
-  si: {fileID: 0}
+  jugadors: {fileID: 8399554}
 --- !u!1 &1812987059
 GameObject:
   m_ObjectHideFlags: 0

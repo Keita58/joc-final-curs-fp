@@ -13,9 +13,10 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI textMesh;
     public int torn = 0;
+
     void Start()
     {
-        
+        this.list = InfoCompartida.jugadors;
     }
 
     // Update is called once per frame

@@ -24,7 +24,8 @@ public class Enemic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        listEnemic = InfoCompartida.jugadors;
+        list = InfoCompartida.enemics;
     }
 
     // Update is called once per frame
@@ -269,7 +270,7 @@ public class Enemic : MonoBehaviour
         {
             this.hp--;
             Object.Destroy(this.transform.GetChild(0).gameObject);
-            GameObject num = Instantiate(nums.transform.GetChild(this.hp).gameObject, this.transform);
+            GameObject num = Instantiate(nums.transform.GetChild(this.hp-1).gameObject, this.transform);
             num.transform.position = new Vector3(this.transform.position.x + 0.1f, this.transform.position.y - 0.15f, 0);
             if (this.hp <= 0)
             {

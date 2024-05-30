@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
@@ -25,7 +27,32 @@ public class Jugador : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        this.tag = "Jugador";
+        for (int i = 0; i < SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects().Length; i++)
+        {
+            GameObject a = SceneManager.GetSceneByName("Mapa2").GetRootGameObjects()[i];
+            if(a.name == "Grid")
+            {
+                for(int x = 0;  x<a.transform.childCount; x++)
+                {
+                    if (a.transform.GetChild(x).name == "Mapa")
+                    {
+                        this.gridManager = a.transform.GetChild(x).GetComponent<GridManager>();
+                        this.groundTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
+                    }else if(a.transform.GetChild(x).name == "Dificultat")
+                    {
+                        this.collisionTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
+                    }else if (a.transform.GetChild(x).tag == "Enemic")
+                    {
+                        this.listEnemic.Add(a.transform.GetChild(x).GetComponent<Enemic>());
+                    }
+                    else if (a.transform.GetChild(x).tag == "Jugador")
+                    {
+                        this.list.Add(a.transform.GetChild(x).GetComponent<Jugador>());
+                    }
+                }
+            }
+        }
     }
 
     // Update is called once per frame
@@ -271,6 +298,7 @@ public class Jugador : MonoBehaviour
             this.hp--;
             if (this.hp <= 0)
             {
+                Player2Manager.getInstance().setMoney(10);
                 Destroy(this.gameObject);
             }
         }

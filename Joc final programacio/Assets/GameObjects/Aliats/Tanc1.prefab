@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: af4168877f28c9b47bf215c85d13f6ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,6 +98,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63439f88a94b73469faa4ddee0de043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridManager: {fileID: 0}
+  hp: 0
+  groundTilemap: {fileID: 0}
+  list: []
+  listEnemic: []
+  collisionTilemap: {fileID: 0}
+  moviment: 0
+  RangAtac: 0
+  distancia: 0
+  selected: 0
 --- !u!61 &4172603376898210086
 BoxCollider2D:
   m_ObjectHideFlags: 0

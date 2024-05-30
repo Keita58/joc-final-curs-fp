@@ -15,11 +15,11 @@ public class Jugador : MonoBehaviour
     public GridManager gridManager;
     [SerializeField] public int hp;
     [SerializeField]
-    Tilemap groundTilemap;
+    public Tilemap groundTilemap;
     [SerializeField] List<Jugador> list;
     [SerializeField] List<Enemic> listEnemic;
     [SerializeField]
-    Tilemap collisionTilemap;
+    public Tilemap collisionTilemap;
     [SerializeField] int moviment;
     [SerializeField] int RangAtac;
     [SerializeField] bool distancia = false;
@@ -52,7 +52,8 @@ public class Jugador : MonoBehaviour
                     }
                 }
             }
-        }
+        }        list = InfoCompartida.jugadors;
+        listEnemic = InfoCompartida.enemics;
     }
 
     // Update is called once per frame

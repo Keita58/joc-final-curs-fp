@@ -30,6 +30,8 @@ public class Llista : MonoBehaviour
             GameObject crea = GameObject.Find(collision.gameObject.name);
             crea.GetComponent<Buy>().creat = false;
             collision.gameObject.GetComponent<Grab>().moure = false;
+            collision.gameObject.AddComponent<Jugador>();
+            InfoCompartida.jugadors.Add(collision.gameObject.GetComponent<Jugador>());
         }
         else 
         { 
@@ -46,9 +48,10 @@ public class Llista : MonoBehaviour
                 GameObject crea = GameObject.Find(collision.gameObject.name);
                 crea.GetComponent<Buy>().creat = false;
                 collision.gameObject.GetComponent<Grab>().moure = false;
+                collision.gameObject.AddComponent<Jugador>();
+                InfoCompartida.jugadors.Add(collision.gameObject.GetComponent<Jugador>());
             }
             possible = true;
         }
-        
     }
 }

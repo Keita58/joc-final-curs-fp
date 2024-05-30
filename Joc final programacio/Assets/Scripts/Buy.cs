@@ -19,6 +19,8 @@ public class Buy : MonoBehaviour
     [SerializeField] Tilemap map;
     [SerializeField]
     Llista jugadors;
+    [SerializeField]
+    Tilemap collisionTilemap;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +70,7 @@ public class Buy : MonoBehaviour
             aliat.transform.position = new Vector3(this.transform.position.x, -2, this.transform.position.z);
             aliat.AddComponent<Grab>();
             aliat.GetComponent<Grab>().groundTilemap = map;
-            aliat.GetComponent<Grab>().llista = jugadors.listSoldats;
+            aliat.GetComponent<Jugador>().enabled = false;
             GameObject num = Instantiate(nums[int.Parse(text.text) - 1], aliat.transform);
             num.transform.position = new Vector3(aliat.transform.position.x + 0.1f, aliat.transform.position.y - 0.15f, 0);
             creat = true;

@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class Enemic : MonoBehaviour
 {
@@ -23,6 +23,7 @@ public class Enemic : MonoBehaviour
     [SerializeField] int RangAtac;
     [SerializeField] bool distancia = false;
     [SerializeField] public bool selected = false;
+    public GameObject nums;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +54,8 @@ public class Enemic : MonoBehaviour
                 this.listEnemic.Add(a.GetComponent<Jugador>());
             }
         }
+        listEnemic = InfoCompartida.jugadors;
+        list = InfoCompartida.enemics;
     }
 
     // Update is called once per frame
@@ -296,6 +299,9 @@ public class Enemic : MonoBehaviour
         if (gridManager.torn == 0)
         {
             this.hp--;
+            Object.Destroy(this.transform.GetChild(0).gameObject);
+            GameObject num = Instantiate(nums.transform.GetChild(this.hp-1).gameObject, this.transform);
+            num.transform.position = new Vector3(this.transform.position.x + 0.1f, this.transform.position.y - 0.15f, 0);
             if (this.hp <= 0)
             {
                 Player1Manager.getInstance().setMoney(10);

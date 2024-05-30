@@ -7,6 +7,7 @@ using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.SceneManagement;
 
 public class Enemic : MonoBehaviour
 {
@@ -25,7 +26,33 @@ public class Enemic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        this.tag = "Enemic";
+        for (int i = 0; i < SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects().Length; i++)
+        {
+            GameObject a = SceneManager.GetSceneByName("Mapa2").GetRootGameObjects()[i];
+            if (a.name == "Grid")
+            {
+                for (int x = 0; x < a.transform.childCount; x++)
+                {
+                    if (a.transform.GetChild(x).name == "Mapa")
+                    {
+                        this.gridManager = a.transform.GetChild(x).GetComponent<GridManager>();
+                        this.groundTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
+                    }
+                    else if (a.transform.GetChild(x).name == "Dificultat")
+                    {
+                        this.collisionTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
+                    }
+                }
+            } else if (a.tag == "Enemic")
+            {
+                this.list.Add(a.GetComponent<Enemic>());
+            }
+            else if (a.tag == "Jugador")
+            {
+                this.listEnemic.Add(a.GetComponent<Jugador>());
+            }
+        }
     }
 
     // Update is called once per frame
@@ -271,6 +298,7 @@ public class Enemic : MonoBehaviour
             this.hp--;
             if (this.hp <= 0)
             {
+                Player1Manager.getInstance().setMoney(10);
                 Destroy(this.gameObject);
             }
         }

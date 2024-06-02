@@ -22,12 +22,17 @@ public class Enemic : MonoBehaviour
     [SerializeField] int moviment;
     [SerializeField] int RangAtac;
     [SerializeField] bool distancia = false;
-    [SerializeField] public bool selected = false;
+    [SerializeField] public bool selected;
     public GameObject nums;
     // Start is called before the first frame update
     void Start()
     {
         gameObject.tag = "Enemic";
+        selected = true;
+    }
+
+    private void OnEnable()
+    {
         for (int i = 0; i < SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects().Length; i++)
         {
             GameObject a = SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects()[i];
@@ -57,6 +62,7 @@ public class Enemic : MonoBehaviour
         }
     }
 
+
     // Update is called once per frame
     bool ataque = false;
     void Update()
@@ -79,10 +85,10 @@ public class Enemic : MonoBehaviour
                 }
             }
         }
-        if (!ataque)
+        /*if (!ataque)
         {
             this.QuitarSelect();
-        }
+        }*/
         this.ataque = false;
     }
 
@@ -246,7 +252,11 @@ public class Enemic : MonoBehaviour
     private void OnMouseDown()
     {
         this.Paint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        if (!this.selected && gridManager.torn==1) this.selected = true;
+        if (!this.selected && gridManager.torn == 1)
+        {
+            this.selected = true;
+            print("Estic sel·leccionant " + this.gameObject.name);
+        }
         else
         {
             for (int x = groundTilemap.cellBounds.min.x; x < groundTilemap.cellBounds.max.x; x++)

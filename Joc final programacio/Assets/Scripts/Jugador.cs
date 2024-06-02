@@ -23,24 +23,29 @@ public class Jugador : MonoBehaviour
     [SerializeField] int moviment;
     [SerializeField] int RangAtac;
     [SerializeField] bool distancia = false;
-    [SerializeField] public bool selected = false;
+    [SerializeField] public bool selected;
     // Start is called before the first frame update
     void Start()
     {
         gameObject.tag = "Jugador";
+        selected = true;
+    }
+
+    private void OnEnable()
+    {
         for (int i = 0; i < SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects().Length; i++)
         {
             GameObject a = SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects()[i];
-            if(a.name == "Grid")
+            if (a.name == "Grid")
             {
-                for(int x = 0; x < a.transform.childCount; x++)
+                for (int x = 0; x < a.transform.childCount; x++)
                 {
                     if (a.transform.GetChild(x).name == "Mapa")
                     {
                         this.gridManager = a.transform.GetChild(x).GetComponent<GridManager>();
                         this.groundTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
                     }
-                    else if(a.transform.GetChild(x).name == "Dificultat")
+                    else if (a.transform.GetChild(x).name == "Dificultat")
                     {
                         this.collisionTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
                     }
@@ -128,7 +133,6 @@ public class Jugador : MonoBehaviour
         print(CanPaintMovement(direction));
         if (CanPaintMovement(direction))
         {
-
             groundTilemap.SetColor(groundTilemap.WorldToCell((Vector3)direction), Color.red);
             collisionTilemap.SetColor(groundTilemap.WorldToCell((Vector3)direction), Color.red);
         }
@@ -184,7 +188,7 @@ public class Jugador : MonoBehaviour
     }
     void CanPaintAtk()
     {
-        if (gridManager.torn==0) {
+        if (gridManager.torn == 0) {
             for (int x = groundTilemap.cellBounds.min.x; x < groundTilemap.cellBounds.max.x; x++)
             {
                 for (int y = groundTilemap.cellBounds.min.y; y < groundTilemap.cellBounds.max.y; y++)
@@ -247,7 +251,12 @@ public class Jugador : MonoBehaviour
     private void OnMouseDown()
     {
         this.Paint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        if (!this.selected && gridManager.torn ==0) this.selected = true;
+        if (!this.selected && gridManager.torn == 0)
+        {
+            this.selected = true;
+            print("Estic sel·leccionant " + this.gameObject.name);
+            print("Torn: " + gridManager.torn);
+        }
         else
         {
             for (int x = groundTilemap.cellBounds.min.x; x < groundTilemap.cellBounds.max.x; x++)
@@ -263,7 +272,6 @@ public class Jugador : MonoBehaviour
             }
             this.selected = false;
         }
-        print(this.selected);
     }
     void atacar()
     {

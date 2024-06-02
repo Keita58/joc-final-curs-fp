@@ -32,6 +32,7 @@ public class GridManager : MonoBehaviour
             }
             else if (a.transform.tag == "Jugador")
             {
+                Destroy(a.gameObject.GetComponent<Grab>());
                 this.list.Add(a.transform.GetComponent<Jugador>());
             }
         }
@@ -53,6 +54,7 @@ public class GridManager : MonoBehaviour
             {
                 if (list[x] != null)
                 {
+                    print("Tinc aliats");
                     if (list[x].selected)
                     {
                         list[x].Move(Camera.main.ScreenToWorldPoint(Input.mousePosition));

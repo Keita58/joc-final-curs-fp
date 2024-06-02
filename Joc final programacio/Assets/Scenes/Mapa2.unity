@@ -3603,8 +3603,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd70a1ce357476b4a9bacc86e77cccb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menu: {fileID: 184043498}
-  mapa: {fileID: 495118745}
+  menu: {fileID: 495118745}
+  mapa: {fileID: 184043498}
   click: {fileID: 622977338}
   personatges: {fileID: 2113515518}
 --- !u!114 &622977338

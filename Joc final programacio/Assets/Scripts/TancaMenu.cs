@@ -8,27 +8,18 @@ using UnityEngine.UI;
 public class TancaMenu : MonoBehaviour
 {
     [SerializeField] Tilemap menu;
-    [SerializeField] GameObject menu2;
-    [SerializeField] TextMeshProUGUI click;
+    [SerializeField] Tilemap mapa;
+    [SerializeField] Button click;
     [SerializeField] GameObject personatges;
-    bool amagat = false;
     public void Tanca()
     {
-        if(!amagat)
+        click.gameObject.SetActive(false);
+        menu.GetComponent<TilemapRenderer>().enabled = false;
+        mapa.GetComponent<GridManager>().enabled = false;
+        mapa.GetComponent<GridManager>().enabled = true;
+        for (int i = 0; i < personatges.GetComponent<Mostra>().jugadorList.Count; i++)
         {
-            click.text = "Obre";
-            menu.GetComponent<TilemapRenderer>().enabled = false;
-            menu2.gameObject.SetActive(false);
-            personatges.gameObject.SetActive(false);
-            amagat = true;
-        }
-        else
-        {
-            click.text = "Tanca";
-            menu.GetComponent<TilemapRenderer>().enabled = true;
-            menu2.gameObject.SetActive(true);
-            personatges.gameObject.SetActive(true);
-            amagat = false;
+            personatges.GetComponent<Mostra>().jugadorList[i].SetActive(false);
         }
     }
 }

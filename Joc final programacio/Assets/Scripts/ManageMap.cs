@@ -62,9 +62,4 @@ public class ManageMap : MonoBehaviour
     {
         SceneManager.LoadScene("Shop");
     }
-
-    public void GotoMenu()
-    {
-        SceneManager.LoadScene("SelectMap");
-    }
 }

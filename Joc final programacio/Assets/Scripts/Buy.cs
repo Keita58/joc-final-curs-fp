@@ -72,6 +72,7 @@ public class Buy : MonoBehaviour
             aliat.GetComponent<Grab>().groundTilemap = map;
             aliat.GetComponent<Jugador>().enabled = false;
             GameObject num = Instantiate(nums[int.Parse(text.text) - 1], aliat.transform);
+            num.name = (int.Parse(text.text)).ToString();
             num.transform.position = new Vector3(aliat.transform.position.x + 0.1f, aliat.transform.position.y - 0.15f, 0);
             creat = true;
             text.text = "0";

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Mostra : MonoBehaviour
 {
     [SerializeField]
-    List<GameObject> jugadorList;
+    public List<GameObject> jugadorList;
 
     // Start is called before the first frame update
     void Start()

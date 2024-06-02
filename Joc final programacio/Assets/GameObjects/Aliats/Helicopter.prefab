@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -97511083681176291}
   m_Layer: 0
   m_Name: Helicopter
-  m_TagString: Untagged
+  m_TagString: Jugador
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,6 +98,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63439f88a94b73469faa4ddee0de043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridManager: {fileID: 0}
+  hp: 0
+  groundTilemap: {fileID: 0}
+  list: []
+  listEnemic: []
+  collisionTilemap: {fileID: 0}
+  moviment: 5
+  RangAtac: 5
+  distancia: 0
+  selected: 0
 --- !u!61 &-97511083681176291
 BoxCollider2D:
   m_ObjectHideFlags: 0

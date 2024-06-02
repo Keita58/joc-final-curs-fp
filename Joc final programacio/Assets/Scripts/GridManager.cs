@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class GridManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    List<Jugador> list;
+    public List<Jugador> list;
     [SerializeField]
     List<Enemic> listEnemic;
     [SerializeField]
@@ -16,9 +18,22 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < InfoCompartida.jugadorsGameObjects.Count; i++)
+        
+    }
+
+    private void OnEnable()
+    {
+        for (int i = 0; i < SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects().Length; i++)
         {
-            list.Add(InfoCompartida.jugadorsGameObjects[i].GetComponent<Jugador>());
+            GameObject a = SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects()[i];
+            if (a.transform.tag == "Enemic")
+            {
+                this.listEnemic.Add(a.transform.GetComponent<Enemic>());
+            }
+            else if (a.transform.tag == "Jugador")
+            {
+                this.list.Add(a.transform.GetComponent<Jugador>());
+            }
         }
     }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7950936280951977665}
   m_Layer: 0
   m_Name: Tanc2
-  m_TagString: Untagged
+  m_TagString: Jugador
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,8 +104,8 @@ MonoBehaviour:
   list: []
   listEnemic: []
   collisionTilemap: {fileID: 0}
-  moviment: 0
-  RangAtac: 0
+  moviment: 4
+  RangAtac: 5
   distancia: 0
   selected: 0
 --- !u!61 &7950936280951977665

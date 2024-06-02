@@ -54,6 +54,7 @@ public class Jugador : MonoBehaviour
             {
                 this.list.Add(a.transform.GetComponent<Jugador>());
             }
+            hp = int.Parse(gameObject.transform.GetChild(0).name);
         }
     }
 

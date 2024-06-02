@@ -28,7 +28,7 @@ public class Jugador : MonoBehaviour
     void Start()
     {
         gameObject.tag = "Jugador";
-        selected = true;
+        selected = false;
     }
 
     private void OnEnable()

@@ -26,7 +26,6 @@ public class Posar : MonoBehaviour
             {
                 InfoCompartida.jugadorsGameObjects.Remove(soldat);
                 SceneManager.MoveGameObjectToScene(soldat, SceneManager.GetActiveScene());
-                collision.gameObject.GetComponent<Jugador>().enabled = true;
                 break;
             }    
         }

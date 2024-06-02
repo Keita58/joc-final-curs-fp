@@ -28,7 +28,7 @@ public class Enemic : MonoBehaviour
     void Start()
     {
         gameObject.tag = "Enemic";
-        selected = true;
+        selected = false;
     }
 
     private void OnEnable()

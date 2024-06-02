@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class InfoCompartida : MonoBehaviour
 {
-    public static List<Jugador> jugadors;
-    public static List<Enemic> enemics;
+    public static List<GameObject> jugadorsGameObjects = new List<GameObject>();
+    public static List<Enemic> enemics = new List<Enemic>();
 }

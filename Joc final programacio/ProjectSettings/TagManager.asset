@@ -11,6 +11,8 @@ TagManager:
   - Aire
   - Vehicle
   - Tilemap carretera
+  - Jugador
+  - Enemic
   layers:
   - Default
   - TransparentFX

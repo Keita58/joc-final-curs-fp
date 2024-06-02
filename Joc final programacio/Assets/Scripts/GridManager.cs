@@ -16,7 +16,10 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
-        this.list = InfoCompartida.jugadors;
+        for (int i = 0; i < InfoCompartida.jugadorsGameObjects.Count; i++)
+        {
+            list.Add(InfoCompartida.jugadorsGameObjects[i].GetComponent<Jugador>());
+        }
     }
 
     // Update is called once per frame

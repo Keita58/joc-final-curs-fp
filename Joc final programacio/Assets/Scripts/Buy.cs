@@ -76,6 +76,7 @@ public class Buy : MonoBehaviour
             creat = true;
             text.text = "0";
             textBotoComprar.text = "0 G";
+            DontDestroyOnLoad( aliat );
         }
     }
 }

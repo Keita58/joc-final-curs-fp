@@ -5,14 +5,16 @@ using UnityEngine;
 public class Mostra : MonoBehaviour
 {
     [SerializeField]
-    List<Jugador> jugadorList;
+    List<GameObject> jugadorList;
+
     // Start is called before the first frame update
     void Start()
     {
+        jugadorList = InfoCompartida.jugadorsGameObjects;
         float x = -8.5f;
-        for(int i = 0; i < InfoCompartida.jugadors.Count; i++)
+        for(int i = 0; i < InfoCompartida.jugadorsGameObjects.Count; i++)
         {
-            InfoCompartida.jugadors[i].gameObject.transform.position = new Vector2(x, -4.5f);
+            InfoCompartida.jugadorsGameObjects[i].gameObject.transform.position = new Vector2(x, -4.5f);
             x++;
         }
     }

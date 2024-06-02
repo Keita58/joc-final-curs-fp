@@ -27,10 +27,10 @@ public class Enemic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.tag = "Enemic";
+        gameObject.tag = "Enemic";
         for (int i = 0; i < SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects().Length; i++)
         {
-            GameObject a = SceneManager.GetSceneByName("Mapa2").GetRootGameObjects()[i];
+            GameObject a = SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects()[i];
             if (a.name == "Grid")
             {
                 for (int x = 0; x < a.transform.childCount; x++)
@@ -45,17 +45,16 @@ public class Enemic : MonoBehaviour
                         this.collisionTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
                     }
                 }
-            } else if (a.tag == "Enemic")
-            {
-                this.list.Add(a.GetComponent<Enemic>());
             }
-            else if (a.tag == "Jugador")
+            else if (a.transform.tag == "Enemic")
             {
-                this.listEnemic.Add(a.GetComponent<Jugador>());
+                this.list.Add(a.transform.GetComponent<Enemic>());
+            }
+            else if (a.transform.tag == "Jugador")
+            {
+                this.listEnemic.Add(a.transform.GetComponent<Jugador>());
             }
         }
-        listEnemic = InfoCompartida.jugadors;
-        list = InfoCompartida.enemics;
     }
 
     // Update is called once per frame

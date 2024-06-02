@@ -27,33 +27,34 @@ public class Jugador : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.tag = "Jugador";
+        gameObject.tag = "Jugador";
         for (int i = 0; i < SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects().Length; i++)
         {
-            GameObject a = SceneManager.GetSceneByName("Mapa2").GetRootGameObjects()[i];
+            GameObject a = SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects()[i];
             if(a.name == "Grid")
             {
-                for(int x = 0;  x<a.transform.childCount; x++)
+                for(int x = 0; x < a.transform.childCount; x++)
                 {
                     if (a.transform.GetChild(x).name == "Mapa")
                     {
                         this.gridManager = a.transform.GetChild(x).GetComponent<GridManager>();
                         this.groundTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
-                    }else if(a.transform.GetChild(x).name == "Dificultat")
+                    }
+                    else if(a.transform.GetChild(x).name == "Dificultat")
                     {
                         this.collisionTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
-                    }else if (a.transform.GetChild(x).tag == "Enemic")
-                    {
-                        this.listEnemic.Add(a.transform.GetChild(x).GetComponent<Enemic>());
-                    }
-                    else if (a.transform.GetChild(x).tag == "Jugador")
-                    {
-                        this.list.Add(a.transform.GetChild(x).GetComponent<Jugador>());
                     }
                 }
             }
-        }        list = InfoCompartida.jugadors;
-        listEnemic = InfoCompartida.enemics;
+            else if (a.transform.tag == "Enemic")
+            {
+                this.listEnemic.Add(a.transform.GetComponent<Enemic>());
+            }
+            else if (a.transform.tag == "Jugador")
+            {
+                this.list.Add(a.transform.GetComponent<Jugador>());
+            }
+        }
     }
 
     // Update is called once per frame

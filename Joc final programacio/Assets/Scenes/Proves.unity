@@ -290,7 +290,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa83e5c536d8d4f4185beb0e13d6b85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  casellesMoviment: 3
+  gridManager: {fileID: 0}
+  hp: 0
+  groundTilemap: {fileID: 0}
+  list: []
+  listEnemic: []
+  collisionTilemap: {fileID: 0}
+  moviment: 0
+  RangAtac: 0
+  distancia: 0
+  selected: 0
+  nums: {fileID: 0}
 --- !u!1 &190856022
 GameObject:
   m_ObjectHideFlags: 0
@@ -4090,7 +4100,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa83e5c536d8d4f4185beb0e13d6b85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  casellesMoviment: 4
+  gridManager: {fileID: 0}
+  hp: 0
+  groundTilemap: {fileID: 0}
+  list: []
+  listEnemic: []
+  collisionTilemap: {fileID: 0}
+  moviment: 0
+  RangAtac: 0
+  distancia: 0
+  selected: 0
+  nums: {fileID: 0}
 --- !u!1 &1419312892
 GameObject:
   m_ObjectHideFlags: 0
@@ -6148,7 +6168,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa83e5c536d8d4f4185beb0e13d6b85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  casellesMoviment: 4
+  gridManager: {fileID: 0}
+  hp: 0
+  groundTilemap: {fileID: 0}
+  list: []
+  listEnemic: []
+  collisionTilemap: {fileID: 0}
+  moviment: 0
+  RangAtac: 0
+  distancia: 0
+  selected: 0
+  nums: {fileID: 0}
 --- !u!1001 &1714096325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6521,4 +6551,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa83e5c536d8d4f4185beb0e13d6b85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  casellesMoviment: 5
+  gridManager: {fileID: 0}
+  hp: 0
+  groundTilemap: {fileID: 0}
+  list: []
+  listEnemic: []
+  collisionTilemap: {fileID: 0}
+  moviment: 0
+  RangAtac: 0
+  distancia: 0
+  selected: 0
+  nums: {fileID: 0}

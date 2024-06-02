@@ -9,6 +9,7 @@ public class Llista : MonoBehaviour
     public List<GameObject> listSoldats;
     public bool possible;
     public Tilemap groundTilemap;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,33 +24,33 @@ public class Llista : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if(listSoldats.Count == 0)
+        if (listSoldats.Count == 0)
         {
             listSoldats.Add(collision.gameObject);
             print(collision.gameObject.GetComponent<Grab>().moure);
             GameObject crea = GameObject.Find(collision.gameObject.name);
             crea.GetComponent<Buy>().creat = false;
             collision.gameObject.GetComponent<Grab>().moure = false;
-            collision.gameObject.AddComponent<Jugador>();
-            InfoCompartida.jugadors.Add(collision.gameObject.GetComponent<Jugador>());
+            InfoCompartida.jugadorsGameObjects.Add(collision.gameObject);
         }
-        else 
-        { 
-            for(int i = 0; i < listSoldats.Count; i++) {
+        else
+        {
+            for (int i = 0; i < listSoldats.Count; i++)
+            {
                 Vector3 posSoldat = new Vector3(groundTilemap.WorldToCell(listSoldats[i].transform.position).x + 0.5f, groundTilemap.WorldToCell(listSoldats[i].transform.position).y + 0.5f, groundTilemap.WorldToCell(listSoldats[i].transform.position).z);
-                if (posSoldat == collision.transform.position) {
+                if (posSoldat == collision.transform.position)
+                {
                     possible = false;
                 }
             }
-            if(possible)
+            if (possible)
             {
                 listSoldats.Add(collision.gameObject);
                 print(collision.gameObject.GetComponent<Grab>().moure);
                 GameObject crea = GameObject.Find(collision.gameObject.name);
                 crea.GetComponent<Buy>().creat = false;
                 collision.gameObject.GetComponent<Grab>().moure = false;
-                collision.gameObject.AddComponent<Jugador>();
-                InfoCompartida.jugadors.Add(collision.gameObject.GetComponent<Jugador>());
+                InfoCompartida.jugadorsGameObjects.Add(collision.gameObject);
             }
             possible = true;
         }

@@ -8,7 +8,6 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 public class Jugador : MonoBehaviour
 {
@@ -16,6 +15,7 @@ public class Jugador : MonoBehaviour
     [SerializeField] public int hp;
     [SerializeField]
     public Tilemap groundTilemap;
+    [SerializeField] public Tilemap extraTilemap;
     [SerializeField] List<Jugador> list;
     [SerializeField] List<Enemic> listEnemic;
     [SerializeField]
@@ -24,6 +24,7 @@ public class Jugador : MonoBehaviour
     [SerializeField] int RangAtac;
     [SerializeField] bool distancia = false;
     [SerializeField] public bool selected;
+    [SerializeField] public GameObject nums;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +36,7 @@ public class Jugador : MonoBehaviour
     {
         for (int i = 0; i < SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects().Length; i++)
         {
+            print("inici on enable");
             GameObject a = SceneManager.GetSceneByName(SceneManager.GetActiveScene().name).GetRootGameObjects()[i];
             if (a.name == "Grid")
             {
@@ -45,6 +47,8 @@ public class Jugador : MonoBehaviour
                         this.gridManager = a.transform.GetChild(x).GetComponent<GridManager>();
                         this.groundTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
                     }
+                    else if(a.transform.GetChild(x).name == "Extra")
+                        this.extraTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
                     else if (a.transform.GetChild(x).name == "Dificultat")
                     {
                         this.collisionTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
@@ -117,6 +121,7 @@ public class Jugador : MonoBehaviour
             this.selected = false;
         }
     }
+
     private bool CanMove(Vector2 direction)
     {
         if (Vector3Int.Distance(groundTilemap.WorldToCell((Vector3)direction), groundTilemap.WorldToCell(this.transform.position)) <= moviment)
@@ -128,15 +133,17 @@ public class Jugador : MonoBehaviour
         }
         return false;
     }
+
     public void Paint(Vector2 direction)
     {
         print(CanPaintMovement(direction));
         if (CanPaintMovement(direction))
         {
-            groundTilemap.SetColor(groundTilemap.WorldToCell((Vector3)direction), Color.red);
-            collisionTilemap.SetColor(groundTilemap.WorldToCell((Vector3)direction), Color.red);
+            groundTilemap.SetColor(groundTilemap.WorldToCell((Vector3)direction), Color.blue);
+            collisionTilemap.SetColor(groundTilemap.WorldToCell((Vector3)direction), Color.blue);
         }
     }
+
     private bool CanPaintMovement(Vector2 direction)
     {
         if (!distancia)
@@ -151,10 +158,12 @@ public class Jugador : MonoBehaviour
                         {
                             groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
                             groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.blue);
+                            extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.blue);
                         }
                         else
                         {
                             groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                            extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
                         }
                     }
                 }
@@ -174,6 +183,7 @@ public class Jugador : MonoBehaviour
                         {
                             groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
                             groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.blue);
+                            extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.blue);
                         }
                     }
                 }
@@ -186,6 +196,7 @@ public class Jugador : MonoBehaviour
         return true;
 
     }
+
     void CanPaintAtk()
     {
         if (gridManager.torn == 0) {
@@ -199,12 +210,14 @@ public class Jugador : MonoBehaviour
                         {
                             groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
                             groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.cyan);
+                            extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.cyan);
                         }
                         else
                         {
                             if (distancia)
                             {
                                 groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                                extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
                             }
                         }
                     }
@@ -224,30 +237,7 @@ public class Jugador : MonoBehaviour
             }
         }
     }
-    /*   private void canPaintRecursiu(Vector3Int pos, int moviments)
-       {
-           if (moviments > 0)
-           {
-               groundTilemap.SetTileFlags(new Vector3Int(pos.x, pos.y, pos.z), TileFlags.None);
-               groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(pos.x, pos.y, pos.z)), Color.red);
-               if (Vector3Int.Distance(new Vector3Int(pos.x + 1, pos.y, pos.z), groundTilemap.WorldToCell(this.transform.position)) <= moviment)
-               {
-                   canPaintRecursiu(new Vector3Int(pos.x + 1, pos.y, pos.z), moviments--);
-               }
-               else if ((Vector3Int.Distance(new Vector3Int(pos.x - 1, pos.y, pos.z), groundTilemap.WorldToCell(this.transform.position)) <= moviment))
-               {
-                   canPaintRecursiu(new Vector3Int(pos.x - 1, pos.y, pos.z), moviments--);
-               }
-               else if ((Vector3Int.Distance(new Vector3Int(pos.x, pos.y + 1, pos.z), groundTilemap.WorldToCell(this.transform.position)) <= moviment))
-               {
-                   canPaintRecursiu(new Vector3Int(pos.x, pos.y + 1, pos.z), moviments--);
-               }
-               else if ((Vector3Int.Distance(new Vector3Int(pos.x, pos.y - 1, pos.z), groundTilemap.WorldToCell(this.transform.position)) <= moviment))
-               {
-                   canPaintRecursiu(new Vector3Int(pos.x, pos.y - 1, pos.z), moviments--);
-               }
-           }
-       }*/
+    
     private void OnMouseDown()
     {
         this.Paint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -266,6 +256,7 @@ public class Jugador : MonoBehaviour
                     for (int z = groundTilemap.cellBounds.min.z; z < groundTilemap.cellBounds.max.z; z++)
                     {
                         groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                        extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
                     }
                 }
 
@@ -307,6 +298,9 @@ public class Jugador : MonoBehaviour
         if (gridManager.torn == 1)
         {
             this.hp--;
+            Destroy(this.transform.GetChild(0).gameObject);
+            GameObject num = Instantiate(nums.transform.GetChild(this.hp - 1).gameObject, this.transform);
+            num.transform.position = new Vector3(this.transform.position.x + 0.1f, this.transform.position.y - 0.15f, 0);
             if (this.hp <= 0)
             {
                 Player2Manager.getInstance().setMoney(10);

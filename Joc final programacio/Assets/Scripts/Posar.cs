@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Posar : MonoBehaviour
 {
     public List<GameObject> listSoldats = new List<GameObject>();
+    [SerializeField] GameObject nums;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,7 @@ public class Posar : MonoBehaviour
         {
             if(soldat.name == collision.gameObject.name)
             {
+                collision.gameObject.GetComponent<Jugador>().nums = nums.gameObject;
                 InfoCompartida.jugadorsGameObjects.Remove(soldat);
                 SceneManager.MoveGameObjectToScene(soldat, SceneManager.GetActiveScene());
                 break;

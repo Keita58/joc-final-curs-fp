@@ -6,4 +6,5 @@ public class InfoCompartida : MonoBehaviour
 {
     public static List<GameObject> jugadorsGameObjects = new List<GameObject>();
     public static List<Enemic> enemics = new List<Enemic>();
+    public static int monedes = 0;
 }

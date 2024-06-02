@@ -16,6 +16,8 @@ public class StartController : MonoBehaviour
 
     void TaskOnClick()
     {
+        InfoCompartida.monedes = 20;
+        print(InfoCompartida.monedes);
         SceneManager.LoadScene("SelectMap");
     }
 }

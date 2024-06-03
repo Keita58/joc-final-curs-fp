@@ -17,6 +17,7 @@ public class Enemic : MonoBehaviour
     Tilemap groundTilemap;
     [SerializeField] List<Enemic> list;
     [SerializeField] List<Jugador> listEnemic;
+    [SerializeField] public Tilemap extraTilemap;
     [SerializeField]
     Tilemap collisionTilemap;
     [SerializeField] int moviment;
@@ -28,7 +29,8 @@ public class Enemic : MonoBehaviour
     void Start()
     {
         gameObject.tag = "Enemic";
-        selected = false;
+        if (RangAtac > moviment)
+            distancia = true;
     }
 
     private void OnEnable()
@@ -45,6 +47,8 @@ public class Enemic : MonoBehaviour
                         this.gridManager = a.transform.GetChild(x).GetComponent<GridManager>();
                         this.groundTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
                     }
+                    else if (a.transform.GetChild(x).name == "Extra")
+                        this.extraTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
                     else if (a.transform.GetChild(x).name == "Dificultat")
                     {
                         this.collisionTilemap = a.transform.GetChild(x).GetComponent<Tilemap>();
@@ -53,7 +57,8 @@ public class Enemic : MonoBehaviour
             }
             else if (a.transform.tag == "Enemic")
             {
-                this.list.Add(a.transform.GetComponent<Enemic>());
+                if(a.transform.position != this.transform.position)
+                    this.list.Add(a.transform.GetComponent<Enemic>());
             }
             else if (a.transform.tag == "Jugador")
             {
@@ -154,10 +159,12 @@ public class Enemic : MonoBehaviour
                         {
                             groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
                             groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)),new Color(255, 0, 0,0.74f));
+                            extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), new Color(255, 0, 0, 0.74f));
                         }
                         else
                         {
                             groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                            extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
                         }
                     }
                 }
@@ -177,6 +184,7 @@ public class Enemic : MonoBehaviour
                         {
                             groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
                             groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), new Color(255, 0, 0, 0.74f));
+                            extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), new Color(255, 0, 0, 0.74f));                        
                         }
                     }
                 }
@@ -202,12 +210,16 @@ public class Enemic : MonoBehaviour
                         {
                             groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
                             groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.red);
+                            extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.red);
+
                         }
                         else
                         {
                             if (distancia)
                             {
                                 groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                                extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+
                             }
                         }
                     }
@@ -235,7 +247,7 @@ public class Enemic : MonoBehaviour
         if (!this.selected && gridManager.torn == 1)
         {
             this.selected = true;
-            print("Estic sel·leccionant " + this.gameObject.name);
+            print("Estic selï¿½leccionant " + this.gameObject.name);
         }
         else
         {
@@ -246,6 +258,8 @@ public class Enemic : MonoBehaviour
                     for (int z = groundTilemap.cellBounds.min.z; z < groundTilemap.cellBounds.max.z; z++)
                     {
                         groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                        extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                    
                     }
                 }
 
@@ -288,9 +302,12 @@ public class Enemic : MonoBehaviour
         if (gridManager.torn == 0)
         {
             this.hp--;
-            Destroy(this.transform.GetChild(0).gameObject);
-            GameObject num = Instantiate(nums.transform.GetChild(this.hp-1).gameObject, this.transform);
-            num.transform.position = new Vector3(this.transform.position.x + 0.1f, this.transform.position.y - 0.15f, 0);
+            if (this.hp > 0)
+            {
+                Destroy(this.transform.GetChild(0).gameObject);
+                GameObject num = Instantiate(nums.transform.GetChild(this.hp - 1).gameObject, this.transform);
+                num.transform.position = new Vector3(this.transform.position.x + 0.1f, this.transform.position.y - 0.15f, 0);
+            }
             if (this.hp <= 0)
             {
                 //Player1Manager.getInstance().setMoney(10);

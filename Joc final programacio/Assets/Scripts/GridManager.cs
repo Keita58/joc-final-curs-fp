@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -15,7 +16,8 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI textMesh;
     public int torn = 0;
-
+    int count;
+    int count2;
     void Start()
     {
         
@@ -45,6 +47,28 @@ public class GridManager : MonoBehaviour
             textMesh.text = "Torn: Blau";
         else
             textMesh.text = "Torn: Vermell";
+
+        count = 0;
+        count2 = 0;
+        for (int i = 0; i < listEnemic.Count; i++)
+        {
+            if (listEnemic[i].IsDestroyed())
+                count++;
+        }
+        if (listEnemic.Count == count)
+        {
+            SceneManager.LoadScene("SelectMap");
+        }
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].IsDestroyed())
+                count2++;
+        }
+        if (list.Count == count2)
+        {
+            SceneManager.LoadScene("SelectMap");
+        }
     }
     private void OnMouseDown()
     {

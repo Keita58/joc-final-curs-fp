@@ -150,6 +150,7 @@ MonoBehaviour:
   groundTilemap: {fileID: 184043498}
   list: []
   listEnemic: []
+  extraTilemap: {fileID: 287899691}
   collisionTilemap: {fileID: 1512532724}
   moviment: 3
   RangAtac: 2
@@ -3416,6 +3417,7 @@ MonoBehaviour:
   groundTilemap: {fileID: 184043498}
   list: []
   listEnemic: []
+  extraTilemap: {fileID: 287899691}
   collisionTilemap: {fileID: 1512532724}
   moviment: 3
   RangAtac: 2
@@ -5049,6 +5051,7 @@ MonoBehaviour:
   groundTilemap: {fileID: 184043498}
   list: []
   listEnemic: []
+  extraTilemap: {fileID: 287899691}
   collisionTilemap: {fileID: 1512532724}
   moviment: 4
   RangAtac: 4
@@ -7380,6 +7383,7 @@ MonoBehaviour:
   groundTilemap: {fileID: 184043498}
   list: []
   listEnemic: []
+  extraTilemap: {fileID: 287899691}
   collisionTilemap: {fileID: 1512532724}
   moviment: 2
   RangAtac: 3

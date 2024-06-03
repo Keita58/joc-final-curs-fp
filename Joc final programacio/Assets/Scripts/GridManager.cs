@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -45,6 +46,17 @@ public class GridManager : MonoBehaviour
             textMesh.text = "Torn: Blau";
         else
             textMesh.text = "Torn: Vermell";
+
+        int count = 0;
+        for(int i = 0; i < listEnemic.Count; i++)
+        {
+            if (listEnemic[i].IsDestroyed())
+                count++;
+        }
+        if (listEnemic.Count == count)
+        {
+            SceneManager.LoadScene("SelectMap");
+        }
     }
     private void OnMouseDown()
     {

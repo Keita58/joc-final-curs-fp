@@ -29,7 +29,7 @@ public class Jugador : MonoBehaviour
     void Start()
     {
         gameObject.tag = "Jugador";
-        selected = false;
+        this.transform.position = new Vector3(groundTilemap.WorldToCell(this.transform.position).x+ 0.5f, groundTilemap.WorldToCell(this.transform.position).y + 0.5f, groundTilemap.WorldToCell(this.transform.position).z);
     }
 
     private void OnEnable()
@@ -61,7 +61,8 @@ public class Jugador : MonoBehaviour
             }
             else if (a.transform.tag == "Jugador")
             {
-                this.list.Add(a.transform.GetComponent<Jugador>());
+                if(a.transform.position != this.transform.position)
+                    this.list.Add(a.transform.GetComponent<Jugador>());
             }
             hp = int.Parse(gameObject.transform.GetChild(0).name);
         }
@@ -241,10 +242,10 @@ public class Jugador : MonoBehaviour
     private void OnMouseDown()
     {
         this.Paint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        if (!this.selected && gridManager.torn == 0)
+        if (gridManager.torn == 0)
         {
             this.selected = true;
-            print("Estic sel·leccionant " + this.gameObject.name);
+            print("Estic selï¿½leccionant " + this.gameObject.name);
             print("Torn: " + gridManager.torn);
         }
         else
@@ -298,9 +299,12 @@ public class Jugador : MonoBehaviour
         if (gridManager.torn == 1)
         {
             this.hp--;
-            Destroy(this.transform.GetChild(0).gameObject);
-            GameObject num = Instantiate(nums.transform.GetChild(this.hp - 1).gameObject, this.transform);
-            num.transform.position = new Vector3(this.transform.position.x + 0.1f, this.transform.position.y - 0.15f, 0);
+            if (this.hp > 0)
+            {
+                Destroy(this.transform.GetChild(0).gameObject);
+                GameObject num = Instantiate(nums.transform.GetChild(this.hp - 1).gameObject, this.transform);
+                num.transform.position = new Vector3(this.transform.position.x + 0.1f, this.transform.position.y - 0.15f, 0);
+            }
             if (this.hp <= 0)
             {
                 Player2Manager.getInstance().setMoney(10);

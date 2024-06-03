@@ -29,6 +29,8 @@ public class Enemic : MonoBehaviour
     void Start()
     {
         gameObject.tag = "Enemic";
+        if (RangAtac > moviment)
+            distancia = true;
     }
 
     private void OnEnable()

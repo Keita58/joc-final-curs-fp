@@ -30,6 +30,8 @@ public class Jugador : MonoBehaviour
     {
         gameObject.tag = "Jugador";
         this.transform.position = new Vector3(groundTilemap.WorldToCell(this.transform.position).x+ 0.5f, groundTilemap.WorldToCell(this.transform.position).y + 0.5f, groundTilemap.WorldToCell(this.transform.position).z);
+        if (RangAtac > moviment)
+            distancia = true;
     }
 
     private void OnEnable()
@@ -163,6 +165,7 @@ public class Jugador : MonoBehaviour
                         }
                         else
                         {
+                            groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
                             groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
                             extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
                         }
@@ -183,8 +186,9 @@ public class Jugador : MonoBehaviour
                         if (Vector3Int.Distance(new Vector3Int(x, y, z), groundTilemap.WorldToCell(this.transform.position)) <= moviment)
                         {
                             groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
+                            groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
                             groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.blue);
-                            extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.blue);
+                            //extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.blue);
                         }
                     }
                 }
@@ -211,14 +215,16 @@ public class Jugador : MonoBehaviour
                         {
                             groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
                             groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.cyan);
-                            extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.cyan);
+                            //extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.cyan);
                         }
                         else
                         {
                             if (distancia)
                             {
+                                groundTilemap.SetTileFlags(new Vector3Int(x, y, z), TileFlags.None);
+
                                 groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
-                                extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                                //extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
                             }
                         }
                     }
@@ -257,7 +263,7 @@ public class Jugador : MonoBehaviour
                     for (int z = groundTilemap.cellBounds.min.z; z < groundTilemap.cellBounds.max.z; z++)
                     {
                         groundTilemap.SetColor(groundTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
-                        extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
+                        //extraTilemap.SetColor(extraTilemap.WorldToCell(new Vector3(x, y, z)), Color.white);
                     }
                 }
 

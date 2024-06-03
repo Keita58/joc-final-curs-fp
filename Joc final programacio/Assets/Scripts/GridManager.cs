@@ -20,8 +20,7 @@ public class GridManager : MonoBehaviour
     int count2;
     void Start()
     {
-        count = 0;
-        count2 = 0;
+        
     }
 
     private void OnEnable()
@@ -49,8 +48,9 @@ public class GridManager : MonoBehaviour
         else
             textMesh.text = "Torn: Vermell";
 
-        
-        for(int i = 0; i < listEnemic.Count; i++)
+        count = 0;
+        count2 = 0;
+        for (int i = 0; i < listEnemic.Count; i++)
         {
             if (listEnemic[i].IsDestroyed())
                 count++;
